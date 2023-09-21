@@ -19,14 +19,13 @@
 
     {% comment %} Below is how to show the product data {% endcomment %}
 
-    {% for product in products %}
         <tr>
             <td>{{product.name}}</td>
             <td>{{product.price}}</td>
             <td>{{product.description}}</td>
             <td>{{product.date_added}}</td>
         </tr>
-    {% endfor %}
+        
 </table>
 
 <br />
@@ -34,6 +33,12 @@
 <a href="{% url 'main:create_product' %}">
     <button>
         Add New Product
+    </button>
+</a>
+<h5>Last login session: {{ last_login }}</h5>
+<a href="{% url 'main:logout' %}">
+    <button>
+        Logout
     </button>
 </a>
 
