@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Your Name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
     <h1>Shopping List Page</h1>
 
     <h5>Name:</h5>
@@ -18,23 +38,39 @@
     </tr>
 
     {% comment %} Below is how to show the product data {% endcomment %}
-
+    {% for product in products %}
         <tr>
             <td>{{product.name}}</td>
             <td>{{product.price}}</td>
             <td>{{product.description}}</td>
             <td>{{product.date_added}}</td>
+            <td>
+                {% if product.pk %}
+    <a href="{% url 'main:edit_product' product.pk %}">
+        <button>
+            Edit
+        </button>
+    </a>
+    <a href="{% url 'main:delete_product' product.pk %}">
+        <button>
+            Delete
+        </button>
+    </a>
+{% endif %}
+
+            </td>
         </tr>
-        
+        {% endfor %}       
 </table>
 
 <br />
 
-<a href="{% url 'main:create_product' %}">
-    <button>
-        Add New Product
-    </button>
-</a>
+    <a href="{% url 'main:create_product' %}">
+        <button>
+            Add New Product
+        </button>
+    </a>
+    
 <h5>Last login session: {{ last_login }}</h5>
 <a href="{% url 'main:logout' %}">
     <button>
